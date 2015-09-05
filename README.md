@@ -29,11 +29,12 @@ Or install it yourself as:
 ## Usage
 
 If you're added a watch to apache2
-```
+
+```sh
 gem install god
 gem install god-inotify
 
-cat > /etc/god/process/apache.yml <<-EOF
+cat > /etc/god/process/apache2.yml <<-EOF
 name: "apache2"
 EOF
 ```
@@ -69,16 +70,15 @@ You may change any of the values above by using the following configurations
 
   * "name" (required): this is the name of the service your watching
   * "pid\_file": full path to the location of the PID file written by your service.
-    Defaults to `"/var/run/#{name}/#{name}.pid"`
+    Defaults to `/var/run/#{name}/#{name}.pid`
   * "interval": time to wait to poll for actions. See godrb.com
-  * "start": start command. Defaults to "service #{name} start"
-  * "stop": stop command. Defaults to "service #{name} stop"
-  * "restart": restart command. Defaults to "service #{name} restart"
+  * "start": start command. Defaults to `service #{name} start`
+  * "stop": stop command. Defaults to `service #{name} stop`
+  * "restart": restart command. Defaults to `service #{name} restart`
   * "start\_grace": time to wait for process to start. Defaults to `10.seconds`
   * "restart\_grace": time to wait for process to restart. Defaults to `10.seconds`
   * "behavior": behavior to use after action is taken. Defaults to `:clean_pid_file`
   * "notify": notification to use. Defaults to 'admin'
-
 
 ## Development
 
@@ -96,7 +96,6 @@ file to [rubygems.org](https://rubygems.org).
 Bug reports and pull requests are welcome on GitHub at https://github.com/kiskeyix/god-inotify.
 This project is intended to be a safe, welcoming space for collaboration, and contributors are
 expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
-
 
 ## License
 
