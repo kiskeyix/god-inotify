@@ -1,11 +1,7 @@
 require 'test_helper'
 
-class God::InotifyTest < Minitest::Test
-  def test_that_it_has_a_version_number
+class God::InotifyTest < Minitest::Spec
+  it "should test if we have a version defined" do
     refute_nil ::God::Inotify::VERSION
-  end
-
-  def test_it_does_something_useful
-    assert false
   end
 end
