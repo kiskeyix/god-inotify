@@ -28,7 +28,7 @@ Or install it yourself as:
 
 ## Usage
 
-If you're added a watch to apache2
+To watch apache2 you can do the following
 
 ```sh
 gem install god
@@ -37,6 +37,9 @@ gem install god-inotify
 cat > /etc/god/process/apache2.yml <<-EOF
 name: "apache2"
 EOF
+
+# start god
+god -c /etc/god/master.god
 ```
 
 The above YAML configuration created under _/etc/god/process/apache2.yml_ translates to
@@ -115,7 +118,20 @@ You may change any of the values above by using the following configurations
   * "behavior": behavior to use after action is taken. Defaults to `:clean_pid_file`
   * "notify": notification to use. Defaults to 'admin'
 
-## Development
+## Using god config files directly
+
+If you'd rather have more control over the watch configuration, you can simply create
+the .god files the way you normally would and god-inotify will restart/reload god for
+you as needed.
+
+```
+vi redis.god # create your redis watch
+mv redis.god /etc/god/conf.d
+```
+
+That will automatically reload your watches and include `redis.god`.
+
+# Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test`
 to run the tests. You can also run `bin/console` for an interactive prompt that will allow
