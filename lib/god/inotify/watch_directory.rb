@@ -9,7 +9,7 @@ module God
       end
       # runs a loop to watch over all configured directories for changes
       def watch_directories
-        return unless @god.responds_to? :watch and @god.responds_to? :unwatch
+        return unless @god.respond_to? :watch and @god.respond_to? :unwatch
 
         # parse YAML
         @notifier.watch "/etc/god/processes", :create,
