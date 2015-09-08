@@ -7,7 +7,7 @@ module God
       def initialize(opts={})
         @notifier = INotify::Notifier.new
         @god = opts[:god]
-        @root = '/'
+        @root = opts[:root] || '/'
       end
       # configures notifier
       def watch_directories
