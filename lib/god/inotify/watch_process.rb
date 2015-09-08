@@ -8,8 +8,6 @@ module God
     end
     class WatchProcess
       def initialize(opts={})
-        @name = opts[:name]
-        raise NameRequired, "+name+ is a required attribute" if @name.nil?
       end
       def watch(file)
         if file =~ /\.god$/
