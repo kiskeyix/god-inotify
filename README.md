@@ -28,7 +28,7 @@ Or install it yourself as:
 
 ## Usage
 
-To watch apache2 you can do the following
+First, you need to configure `god` similar to the following:
 
 ```terminal
 gem install god
@@ -38,17 +38,17 @@ mkdir -p /etc/god/conf.d
 mkdir -p /etc/god/process
 
 cat > /etc/god/master.god <<-EOF
-God.load "/etc/god/conf.d/*.god"
+    God.load "/etc/god/conf.d/*.god"
 
-God::Contacts::Email.defaults do |d|
-  d.from_email = 'god@localhost'
-  d.from_name = 'God'
-  d.delivery_method = :sendmail
-end
-God.contact(:email) do |c|
-  c.name = 'admin'
-  c.to_email = 'webmaster@localhost'
-end
+    God::Contacts::Email.defaults do |d|
+      d.from_email = 'god@localhost'
+      d.from_name = 'God'
+      d.delivery_method = :sendmail
+    end
+    God.contact(:email) do |c|
+      c.name = 'admin'
+      c.to_email = 'webmaster@localhost'
+    end
 EOF
 
 cat > /etc/god/conf.d/god-inotify.god <<-EOF
@@ -75,6 +75,8 @@ god -c /etc/god/master.god
 
 Now you can freely add processes to watch by simply creating YAML
 files in _/etc/god/process/_, e.g.:
+
+To watch apache2 you can do the following
 
 ```terminal
 cat > /etc/god/process/apache2.yml <<-EOF
