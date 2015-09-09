@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["lemsx1@gmail.com"]
 
   spec.summary       = %q{System for quickly adding watches to god.}
-  spec.description   = %q{Allows you to quickly add watches to god by creating YAML files in /etc/god/processes.}
+  spec.description   = %q{Allows you to quickly add watches to god by creating YAML files in /etc/god/processes or Ruby .god files in /etc/god/conf.d.}
   spec.homepage      = "https://github.com/kiskeyix/god-inotify"
   spec.license       = "MIT"
 
