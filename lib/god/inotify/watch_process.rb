@@ -12,7 +12,7 @@ module God
       end
       def watch(file)
         if file =~ /\.god$/
-          # just load
+          God.load file
         elsif file =~ /\.yml$/
           # parse and create watch
           process = YAML.load_file file
@@ -77,7 +77,7 @@ module God
       end
       def unwatch(file)
         if file =~ /\.god$/
-          # just unload this process
+          God.unload file
         elsif file =~ /\.yml$/
           # parse and unwatch this process
           process = YAML.load_file file
