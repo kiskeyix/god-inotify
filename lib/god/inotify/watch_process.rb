@@ -16,7 +16,7 @@ module God
         elsif file =~ /\.yml$/
           # parse and create watch
           process = YAML.load_file file
-          raise NameRequired, "+name+ is a required attribute in file #{file}" if process['name'].nil?
+          raise NameRequired, "+name+ is a required attribute in file #{file}" unless process.is_a? Hash and process.key? 'name' and not process['name'].nil?
           God.watch do |w|
             w.name = process["name"]
             w.start = process["start"].nil? ? "service #{process["name"]} start" : process["start"]
