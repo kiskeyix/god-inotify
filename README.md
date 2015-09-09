@@ -30,19 +30,59 @@ Or install it yourself as:
 
 To watch apache2 you can do the following
 
-```sh
+```terminal
 gem install god
 gem install god-inotify
 
-cat > /etc/god/process/apache2.yml <<-EOF
-name: "apache2"
+mkdir -p /etc/god/conf.d
+mkdir -p /etc/god/process
+
+cat > /etc/god/master.god <<-EOF
+God.load "/etc/god/conf.d/*.god"
+
+God::Contacts::Email.defaults do |d|
+  d.from_email = 'god@localhost'
+  d.from_name = 'God'
+  d.delivery_method = :sendmail
+end
+God.contact(:email) do |c|
+  c.name = 'admin'
+  c.to_email = 'webmaster@localhost'
+end
 EOF
 
+cat > /etc/god/conf.d/god-inotify.god <<-EOF
+require 'god-inotify'
+
+# handle inotify events
+Thread.new do
+  gw = God::Inotify::WatchProcess.new
+  ev = God::Inotify::WatchDirectory.new god: gw
+  loop do
+    ev.process
+  end
+end
+
+EOF
+```
+
+Start god the way you normally would
+
+```terminal
 # start god
 god -c /etc/god/master.god
 ```
 
-The above YAML configuration created under _/etc/god/process/apache2.yml_ translates to
+Now you can freely add processes to watch by simply creating YAML
+files in _/etc/god/process/_, e.g.:
+
+```terminal
+cat > /etc/god/process/apache2.yml <<-EOF
+name: "apache2"
+EOF
+```
+
+The above YAML configuration translates to
 the following god watch:
 
 ```ruby
@@ -125,7 +165,7 @@ the .god files the way you normally would and god-inotify will restart/reload go
 you as needed.
 
 ```
-vi redis.god # create your redis watch
+vi redis.god # create your watch for redis
 mv redis.god /etc/god/conf.d
 ```
 
